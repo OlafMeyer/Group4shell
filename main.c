@@ -97,7 +97,7 @@ int main()
 				brk=0;
 				for(y=x+1; brk == 0; y++)
 				{
-					if(strstr(string[y], else) != NULL)
+					if(strstr(string[y], "else") != NULL)
 						brk = 1;
 					else
 						printf("%s ", string[y]);
