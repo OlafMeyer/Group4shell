@@ -35,16 +35,16 @@ int main()
 
 			case 'e':
 			//code for an echo
-			if(string[x][1] == 'c' && string[x][2] == 'h'){
+			if(strstr(string[x], "echo") != NULL){
 				//code for echo
 			}
-			else if(string[x][1] == 'l' && string[x][2] == 's')//code for an else
+			else if(strstr(string[x], "else") != NULL)//code for an else
 			{ 
 				printf("\n  %s\n    ", string[x]);
 				brk=0;
 				for(y=x+1; brk == 0; y++)
 				{
-					if(string[y][0] == 'f' && string[y][1] == 'i')
+					if(strstr(string[y], "fi") != NULL)
 						brk = 1;
 					else
 						printf("%s ", string[y]);
@@ -55,13 +55,13 @@ int main()
 
 			case 'f':
 			//code for fi
-			if(string[x][1] == 'i')
+			if(strstr(string[x], "fi") != NULL)
 				printf("\n%s", string[x]);
 			break;
 
 			case 'i':
 			//code for if
-			if(string[x][1] == 'f')
+			if(strstr(string[x], "if") != NULL)
 			{
 				printf("\n%s ", string[x]);
 				for(y=x+1; string[y][0] != ']'; y++)
@@ -73,7 +73,7 @@ int main()
 
 			case 'r':
 			//printf("\nenter r\n");
-			if(string[x][1] == 'e' && string[x][2] == 'p' && string[x][3] == 'e')
+			if(strstr(string[x], "repeat") != NULL)
 			{
 				printf("\nrepeatIndex%d=0\n", rptInx);
 				printf("\nwhile [ $reepetIndex%d -lt %s]\n", rptInx, string[x+1]);
@@ -91,13 +91,13 @@ int main()
 
 			case 't':
 			//code for then
-			if(string[x][1] == 'h' && string[x][2] == 'e' && string[x][3] == 'n')
+			if(strstr(string[x],"then") != NULL)
 			{
 				printf("\n  %s\n    ", string[x]);
 				brk=0;
 				for(y=x+1; brk == 0; y++)
 				{
-					if(string[y][0] == 'e' && string[y][1] == 'l' && string[y][2] == 's')
+					if(strstr(string[y], else) != NULL)
 						brk = 1;
 					else
 						printf("%s ", string[y]);
