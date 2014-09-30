@@ -9,6 +9,7 @@
 int main()
 {
 	int i, x, y;
+	int rptInx = 1;
 	int num = 500; 
 	char **string;
 
@@ -31,6 +32,19 @@ int main()
 			x++;
 			break;
 
+			case 'e':
+			if(string[x][1] == 'c' && string[x][2] == 'h'){
+				//code for echo
+			}
+			else if(string[x][1] == 'l' && string[x][2] == 's')
+				printf("\n  %s", string[x]);
+			break;
+
+			case 'f':
+			if(string[x][1] == 'i')
+				printf("\n%s ", string[x]);
+			break;
+
 			case 'i':
 			if(string[x][1] == 'f')
 			{
@@ -40,22 +54,14 @@ int main()
 				printf("%s", string[y]);
 				x=y;
 			}
-
-			case 'e':
-			if(string[x][1] == 'c' && string[x][2] == 'h')
-				printf("\n    %s ", string[x]);
-			else if(string[x][1] == 'l' && string[x][2] == 's')
-				printf("\n  %s", string[x]);
 			break;
 
-			default:
-			if(string[x+1][0] != '=' || string[x-1][0] != '=')
-			{
-				printf("%s ", string[x]);
-			}
+			case 't':
+			if(string[x][1] == 'h' && string[x][2] == 'e' && string[x][3] == 'n')
+				printf("\n  %s", string[x]);
 			break;
 		}
 	}
-
+	printf("\n");
 	return 0;
 }
