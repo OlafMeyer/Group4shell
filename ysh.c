@@ -16,6 +16,11 @@ typedef void (*sighandler_t)(int);
 static char *my_argv[100], *my_envp[100];
 static char *search_path[10];
 
+void myPipe()
+{
+    printf("pipe enter");
+}
+
 void handle_signal(int signo)
 {
     printf("\n[MY_SHELL ] ");
@@ -188,6 +193,9 @@ int main(int argc, char *argv[], char *envp[])
                            } else {
                                printf("%s: command not found\n", cmd);
                            }
+                       } else if(cmd == "|"){
+                            myPipe();
+
                        } else {
                            if((fd = open(cmd, O_RDONLY)) > 0) {
                                close(fd);
