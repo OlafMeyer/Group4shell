@@ -7,10 +7,9 @@
 #define BUFFER_SIZE 1<<16
 #define ARR_SIZE 1<<16
 
-void parse_args(char *buffer, char** args, 
-                size_t args_size, size_t *nargs)
+void parse_args(char *buffer, char** args, size_t args_size, size_t *nargs)
 {
-    char *buf_args[args_size]; /* You need C99 */
+    char *buf_args[args_size];
     char **cp;
     char *wbuf;
     size_t i, j;
