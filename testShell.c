@@ -111,7 +111,7 @@ int main(int argc, char *argv[], char *envp[]){
                     command2[num+1] = NULL;
 
                     foutput = fopen(args[a+1], "w");
-                    fd = fileno(foutput);
+                    fd[0] = fileno(foutput);
                     red_cmd(command1, command2, fd);
                 }
             }

@@ -87,6 +87,7 @@ int main(int argc, char *argv[], char *envp[]){
     char *command2[100];
     int fd[2];
     FILE *foutput;
+    int PipeOrRed = 0;
 
     pipe(fd);
     
@@ -107,6 +108,7 @@ int main(int argc, char *argv[], char *envp[]){
             for(a=0; args[a]!=NULL; a++){
                 if(strstr (args[a], "|") != NULL ||
                    strstr (args[a], ">") != NULL ){
+                    PipeOrRed++;
                     split = a;
 
                     for(b=0; b<split; b++)
@@ -118,6 +120,7 @@ int main(int argc, char *argv[], char *envp[]){
                     }
                     command1[split] = NULL;
                     command2[num+1] = NULL;
+                    
                     if(strstr (args[a], "|") != NULL) {
                         pipe_cmd(command1, command2, fd);
                     }
@@ -129,10 +132,12 @@ int main(int argc, char *argv[], char *envp[]){
                     
                 }
             }
-            if( execvp(args[0], args)) {
+            if( !PipeOrRed ) {
+                execvp(args[0], args);
                 puts(strerror(errno));
                 exit(127);
             }
+            PipeOrRed--;
         }
     }    
     return 0;
