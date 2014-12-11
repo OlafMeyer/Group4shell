@@ -31,6 +31,21 @@ void pipe_cmd(char** cmd1, char** cmd2, int pfd[]) {
     }
 }
 
+void red_cmd(char** cmd1, char** cmd2, int pfd[]) {
+    int pid;
+
+    switch (pid = fork()) {
+
+    case 0:
+        dup2(pfd[0],1);
+        execvp(cmd1[0], cmd1);
+
+    case -1:
+        perror("fork");
+        exit(1);
+    }
+}
+
 void parse_args(char *buffer, char** args, size_t args_size, size_t *nargs)
 {
     char *buf_args[args_size];
@@ -71,6 +86,7 @@ int main(int argc, char *argv[], char *envp[]){
     char *command1[100];
     char *command2[100];
     int fd[2];
+    FILE *foutput;
 
     pipe(fd);
     
@@ -89,7 +105,8 @@ int main(int argc, char *argv[], char *envp[]){
         } else {
             int split = -1;
             for(a=0; args[a]!=NULL; a++){
-                if(strstr (args[a], "|") != NULL){
+                if(strstr (args[a], "|") != NULL ||
+                   strstr (args[a], ">") != NULL ){
                     split = a;
 
                     for(b=0; b<split; b++)
@@ -101,7 +118,15 @@ int main(int argc, char *argv[], char *envp[]){
                     }
                     command1[split] = NULL;
                     command2[num+1] = NULL;
-                    pipe_cmd(command1, command2, fd);
+                    if(strstr (args[a], "|") != NULL) {
+                        pipe_cmd(command1, command2, fd);
+                    }
+                    if(strstr (args[a], ">") != NULL) {
+                        foutput = fopen(args[a+1], "w");
+                        fd[0] = fileno(foutput);
+                        red_cmd(command1, command2, fd);
+                    }
+                    
                 }
             }
             if( execvp(args[0], args)) {
