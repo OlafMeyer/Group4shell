@@ -39,6 +39,7 @@ void out_cmd(char** cmd1, char** cmd2, int pfd[]) {
     case 0:
         dup2(pfd[0],1);
         execvp(cmd1[0], cmd1);
+        close(pfd[0]);
 
     case -1:
         perror("fork");
@@ -54,6 +55,7 @@ void in_cmd(char** cmd1, char** cmd2, int pfd[]) {
     case 0:
         dup2(pfd[0],0);
         execvp(cmd1[0], cmd1);
+        close(pfd[0]);
 
     case -1:
         perror("fork");
